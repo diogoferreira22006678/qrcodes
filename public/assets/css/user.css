@@ -1,0 +1,29 @@
+#pdf-container{
+    height: 100vh;
+    overflow: auto;
+}
+#pdf-top{
+    position: fixed;
+    background: white;
+    width: 100%;
+    text-align: center;
+}
+#pdf-container-inner{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+#pdf-container canvas{
+    /* height: 100vh; */
+}
+#pdf-bottom{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    text-align: center;
+}
