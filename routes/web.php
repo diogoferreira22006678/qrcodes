@@ -1,9 +1,10 @@
 <?php
 
+use App\Models\Doc;
+use App\Models\Folder;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
-use App\Models\Folder;
-use App\Models\Doc;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,11 +73,11 @@ Route::get('qr/{id}/{doc}', function($id, $doc) {
         ->where('folder_id', $id)
         ->first() or abort(404);
 
-    $path = "/folders/$id/$doc";
-    return view('pdf', [
-        'doc' => $document,
-        'path' => $path
-    ]);
+    // get the pdf from the storage and return it to the view
+    $pdf = Storage::get("/public/folders/$id/$doc");
+
+  // Show the pdf
+    return response($pdf, 200)->header('Content-Type', 'application/pdf');
 });
 
 Route::get('/download-pdf{id}', function($id){

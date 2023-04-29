@@ -76,14 +76,10 @@ class DocsController extends Controller
         // $encryptedContent = Crypt::encrypt(file_get_contents($file->getRealPath()));
         // Storage::put('public/folders/' . $request->folder_id . '/' . $doc->doc_path, $encryptedContent);
 
-        $enc = openssl_encrypt(
-            file_get_contents($file->getRealPath()),
-            'aes-256-cbc',
-            hex2bin(env('AES_KEY')),
-            OPENSSL_RAW_DATA,
-            hex2bin(env('AES_IV'))
-        );
-        Storage::put('public/folders/' . $request->folder_id . '/' . $doc->doc_path, $enc);
+        // get content from file
+        $file = file_get_contents($file->getRealPath());
+
+        Storage::put('public/folders/' . $request->folder_id . '/' . $doc->doc_path, $file);
 
         return response()->json([
             'message' => 'Doc created successfully',
@@ -116,15 +112,7 @@ class DocsController extends Controller
          // Encrypt the file content before saving
         // $encryptedContent = Crypt::encrypt(file_get_contents($file->getRealPath()));
         // Storage::put('public/folders/' . $request->folder_id . '/' . $doc->doc_path, $encryptedContent);
-
-        $enc = openssl_encrypt(
-            file_get_contents($file->getRealPath()),
-            'aes-256-cbc',
-            hex2bin(env('AES_KEY')),
-            OPENSSL_RAW_DATA,
-            hex2bin(env('AES_IV'))
-        );
-        Storage::put('public/folders/' . $request->folder_id . '/' . $doc->doc_path, $enc);
+        Storage::put('public/folders/' . $request->folder_id . '/' . $doc->doc_path, $file);
 
         }
         
