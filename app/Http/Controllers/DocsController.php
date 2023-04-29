@@ -107,8 +107,11 @@ class DocsController extends Controller
         if($request->file('pdf_file') != null){
 
         Storage::delete($doc->doc_path);
+        
         $doc->doc_path = $doc->doc_id . '-' . $file->getClientOriginalName();
 
+        // get content from file
+        $file = file_get_contents($file->getRealPath());
          // Encrypt the file content before saving
         // $encryptedContent = Crypt::encrypt(file_get_contents($file->getRealPath()));
         // Storage::put('public/folders/' . $request->folder_id . '/' . $doc->doc_path, $encryptedContent);
